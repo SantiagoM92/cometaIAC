@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cometaiac-ms
+  labels:
+    app: cometaiac-ms
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cometaiac-ms
+  template:
+    metadata:
+      labels:
+        app: cometaiac-ms
+    spec:
+      volumes:
+        - name: cometaiac-data
+          persistentVolumeClaim:
+            claimName: cometaiac-pvc
+      containers:
+        - name: cometaiac-ms
+          image: tfmjsmu.azurecr.io/cometaiac:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          livenessProbe:
+            httpGet:
+              path: /api/v1/actuator/health
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /api/v1/actuator/health
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 256Mi
+            limits:
+              memory: 512Mi
+          volumeMounts:
+            - mountPath: /app/data
+              name: cometaiac-data
