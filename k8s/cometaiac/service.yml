@@ -9,4 +9,4 @@ spec:
       port: 5000
       targetPort: 5000
   selector:
-    app: nodejs-ms
+    app: cometaiac-ms

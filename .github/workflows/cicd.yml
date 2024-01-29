@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4.1.1
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5.0.0
         with:
           python-version: '3.x'
 
@@ -83,7 +83,7 @@ jobs:
         namespace: ${{ secrets.AKS_NAMESPACE }}
         manifests: k8s/persistence
 
-    - name: Deploy Node to AKS
+    - name: Deploy CometaIAC to AKS
       uses: Azure/k8s-deploy@v4
       with:
         namespace: ${{ secrets.AKS_NAMESPACE }}
