@@ -18,11 +18,11 @@ def run_terraform_command(command, working_dir):
 
 class TerraformHandler:
     def __init__(self, provider, credentials, hcl_content):
+        self.logger = logging.getLogger(self.__class__.__name__)
         self.provider = provider
         self.credentials = credentials
         self.hcl_content = hcl_content
         self.workspace = self.create_workspace()
-        self.logger = logging.getLogger(self.__class__.__name__)
 
     def create_workspace(self):
         try:
