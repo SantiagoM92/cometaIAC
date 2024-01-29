@@ -37,7 +37,7 @@ class OpenIAConfig:
     ASSISTANT_ID = 'asst_7bYaPBJuBoweykJEH8krITXX'
     COMPLETE_STATUS = 'completed'
     STANDBY = 9
-    RETRIES = 3
+    RETRIES = 5
 
 
 class TerraformConfig:
