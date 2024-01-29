@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import os
 import random
@@ -89,11 +90,12 @@ class TerraformHandler:
             self.logger.debug(apply_output["output"])
             return {"result": 200, "output": apply_output["output"]}
         else:
+            asyncio.create_task(self.run_destroy())
             self.logger.error("Error running Terraform Apply:\n")
             self.logger.error(apply_output["error"])
             return {"result": 500, "output": apply_output["error"]}
 
-    def run_destroy(self):
+    async def run_destroy(self):
         self.logger.info("Running terraform destroy:\n")
         destroy_command = ["terraform", "destroy", "-auto-approve"]
         destroy_output = run_terraform_command(destroy_command, self.workspace)
