@@ -60,7 +60,8 @@ class TerraformHandler:
             self.logger.debug(init_output["output"])
             return init_output["output"]
         else:
-            self.logger.error("Error running Terraform Terraform Init:\n", init_output["error"])
+            self.logger.error("Error running Terraform Terraform Init:\n", )
+            self.logger.error(init_output["error"])
             raise TerraformInitError("Error running terraform init, try again")
 
     def run_plan(self):
@@ -71,12 +72,12 @@ class TerraformHandler:
         if plan_output["success"]:
             self.logger.info("terraform plan successfully executed:\n")
             self.logger.debug(plan_output["output"])
-            return plan_output["output"]
+            return {"result": 200, "output": plan_output["output"]}
 
         else:
-            self.logger.error("Error running Terraform Plan:\n", plan_output["error"])
-            raise TerraformPlanError("Error running terraform plan, check the generated template reformulate your "
-                                     "request and try again")
+            self.logger.error("Error running Terraform Plan:\n")
+            self.logger.error(plan_output["error"])
+            return {"result": 500, "output": plan_output["error"]}
 
     def run_apply(self):
         self.logger.info("Running terraform apply:\n")
@@ -88,7 +89,8 @@ class TerraformHandler:
             self.logger.debug(apply_output["output"])
             return {"result": 200, "output": apply_output["output"]}
         else:
-            self.logger.error("Error running Terraform Apply:\n", apply_output["error"])
+            self.logger.error("Error running Terraform Apply:\n")
+            self.logger.error(apply_output["error"])
             return {"result": 500, "output": apply_output["error"]}
 
     def run_destroy(self):
@@ -101,7 +103,8 @@ class TerraformHandler:
             self.logger.debug(destroy_output["output"])
             return destroy_output["output"]
         else:
-            self.logger.error("Error running terraform destroy:\n", destroy_output["error"])
+            self.logger.error("Error running terraform destroy:\n")
+            self.logger.error(destroy_output["error"])
             raise TerraformDestroyError("Error running terraform destroy, check the generated template")
 
     def save_hcl_content(self):

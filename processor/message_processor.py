@@ -72,9 +72,12 @@ class MessageProcessor:
 
         terraform_handler.run_init()
 
-        terraform_handler.run_plan()
+        terraform_plan = terraform_handler.run_plan()
 
-        return terraform_handler.run_apply()
+        if terraform_plan["result"] == 500:
+            return terraform_plan
+        else:
+            return terraform_handler.run_apply()
 
     def validate_credentials(self, hcl_content):
         if TerraformConfig.AZURE_PROVIDER in hcl_content:
