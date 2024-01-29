@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.1.1
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4.1.1
 
     - name: Build Docker Node Image
       uses: docker/build-push-action@v5.0.0
@@ -60,6 +60,9 @@ jobs:
     needs: push
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v4.1.1
+
     - name: Azure login
       uses: azure/login@v1.4.3
       with:
