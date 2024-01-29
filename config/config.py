@@ -42,7 +42,7 @@ class OpenIAConfig:
 class TerraformConfig:
     RANDOM_INIT = 1000
     RANDOM_END = 99999
-    TEMP_PATH = '.cmt'
+    TEMP_PATH = '/data'
     BASE_DIRECTORY = 'workspace'
     TF_FILE_NAME = 'main_generated.tf'
     AZURE_PROVIDER = 'azurerm'

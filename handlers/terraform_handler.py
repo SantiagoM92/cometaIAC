@@ -26,9 +26,9 @@ class TerraformHandler:
 
     def create_workspace(self):
         try:
-            home_dir = os.path.expanduser("~")
+            base_dir = os.getcwd()
             random_number = random.randint(TerraformConfig.RANDOM_INIT, TerraformConfig.RANDOM_END)
-            tf_workspace = os.path.join(home_dir,
+            tf_workspace = os.path.join(base_dir,
                                         f"{TerraformConfig.TEMP_PATH}/{TerraformConfig.BASE_DIRECTORY}{random_number}")
             os.makedirs(tf_workspace, exist_ok=True)
             return tf_workspace
