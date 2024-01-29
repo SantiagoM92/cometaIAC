@@ -26,11 +26,14 @@ class TerraformHandler:
 
     def create_workspace(self):
         try:
+            self.logger.info("Creating workspace:\n")
             base_dir = os.getcwd()
             random_number = random.randint(TerraformConfig.RANDOM_INIT, TerraformConfig.RANDOM_END)
             tf_workspace = os.path.join(base_dir,
                                         f"{TerraformConfig.TEMP_PATH}/{TerraformConfig.BASE_DIRECTORY}{random_number}")
             os.makedirs(tf_workspace, exist_ok=True)
+            self.logger.info(f"Workspace successfully created:\n")
+            self.logger.debug(tf_workspace)
             return tf_workspace
         except Exception as e:
             self.logger.error("Error creating workspace:\n", e)
@@ -48,6 +51,7 @@ class TerraformHandler:
             os.environ["AWS_DEFAULT_REGION"] = self.credentials["aws_region"]
 
     def run_init(self):
+        self.logger.info("Running terraform init:\n")
         init_command = ["terraform", "init"]
         init_output = run_terraform_command(init_command, self.workspace)
 
@@ -60,6 +64,7 @@ class TerraformHandler:
             raise TerraformInitError("Error running terraform init, try again")
 
     def run_plan(self):
+        self.logger.info("Running terraform plan:\n")
         plan_command = ["terraform", "plan"]
         plan_output = run_terraform_command(plan_command, self.workspace)
 
@@ -74,6 +79,7 @@ class TerraformHandler:
                                      "request and try again")
 
     def run_apply(self):
+        self.logger.info("Running terraform apply:\n")
         apply_command = ["terraform", "apply", "-auto-approve"]
         apply_output = run_terraform_command(apply_command, self.workspace)
 
@@ -86,6 +92,7 @@ class TerraformHandler:
             return {"result": 500, "output": apply_output["error"]}
 
     def run_destroy(self):
+        self.logger.info("Running terraform destroy:\n")
         destroy_command = ["terraform", "destroy", "-auto-approve"]
         destroy_output = run_terraform_command(destroy_command, self.workspace)
 
@@ -98,6 +105,11 @@ class TerraformHandler:
             raise TerraformDestroyError("Error running terraform destroy, check the generated template")
 
     def save_hcl_content(self):
-        full_path = os.path.join(self.workspace, TerraformConfig.TF_FILE_NAME)
-        with open(full_path, "w") as archivo:
-            archivo.write(self.hcl_content)
+        try:
+            self.logger.info("Creating file with hcl content:\n")
+            full_path = os.path.join(self.workspace, TerraformConfig.TF_FILE_NAME)
+            with open(full_path, "w") as archivo:
+                archivo.write(self.hcl_content)
+        except Exception as e:
+            self.logger.error("Error saving hcl content:\n", e)
+            raise TerraformInitError("Error creating file, try again")
