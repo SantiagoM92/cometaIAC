@@ -1,4 +1,4 @@
-name: Build, Push and Aks Deploy
+name: Compile, Analysis, Build, Push and Aks Deploy
 
 on:
   push:
@@ -23,8 +23,23 @@ jobs:
       - name: Compile Python code
         run: python -m compileall .
 
-  build:
+  sonar_analysis:
     needs: compile_python_code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.1
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@master
+        with:
+          args: >
+            -Dsonar.projectKey=cometaIAC
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
+  build:
+    needs: sonar_analysis
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
