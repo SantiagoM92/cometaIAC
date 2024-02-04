@@ -51,11 +51,11 @@ class MessageProcessor:
 
             content = content.replace("```hcl\n", "").replace("\n```", "")
 
-            self.logger.info(f"Content successfully retrieved:\n")
+            self.logger.info("Content successfully retrieved:\n")
             self.logger.debug(content)
 
         except Exception as e:
-            self.logger.error(f"Error processing openAI:\n", e)
+            self.logger.error("Error processing openAI:\n", e)
             raise OpenAIError("Error processing openIA, reformulate your request and try again")
 
         return content

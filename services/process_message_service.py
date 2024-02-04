@@ -19,10 +19,10 @@ class ProcessMessageService:
 
             request_message = RequestMessage.from_dict(request_data)
 
-            self.logger.info(f"Starting processing message")
+            self.logger.info("Starting processing message")
             message_processor = MessageProcessor(request_message.message, request_message.credentials)
             response = message_processor.process_message()
-            self.logger.info(f"End processing message")
+            self.logger.info("End processing message")
 
             if response["result"] == 200:
                 response_message = ResponseMessage(response["response"].join(" 🚀"), response["output"], response["tf"])

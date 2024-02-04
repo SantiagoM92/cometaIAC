@@ -33,7 +33,7 @@ class TerraformHandler:
             tf_workspace = os.path.join(base_dir,
                                         f"{TerraformConfig.TEMP_PATH}/{TerraformConfig.BASE_DIRECTORY}{random_number}")
             os.makedirs(tf_workspace, exist_ok=True)
-            self.logger.info(f"Workspace successfully created:\n")
+            self.logger.info("Workspace successfully created:\n")
             self.logger.debug(tf_workspace)
             return tf_workspace
         except Exception as e:
