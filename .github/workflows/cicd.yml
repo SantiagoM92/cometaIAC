@@ -38,7 +38,7 @@ jobs:
         with:
           args: >
             -Dsonar.organization=jsmuown
-            -Dsonar.projectKey=cometaIAC
+            -Dsonar.projectKey=jsmuown_cometaiac
 
   build:
     needs: sonar_analysis
