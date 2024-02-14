@@ -1,8 +1,7 @@
 from flask import Flask
 from flask_restx import Api, Namespace, Resource
 from logging.handlers import TimedRotatingFileHandler
-from config import DevelopmentConfig, Config, MessagesNamespace
-from config.config import ActuatorNamespace
+from config import DevelopmentConfig, Config, MessagesNamespace, ActuatorNamespace
 from models import RequestMessage, ResponseMessage
 from security import require_apikey
 from services import ProcessMessageService

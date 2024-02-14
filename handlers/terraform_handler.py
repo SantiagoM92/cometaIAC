@@ -5,7 +5,7 @@ import random
 import subprocess
 
 from config import TerraformConfig
-from exceptions import TerraformInitError, TerraformPlanError, TerraformDestroyError
+from exceptions import TerraformInitError, TerraformDestroyError
 
 
 def run_terraform_command(command, working_dir):
