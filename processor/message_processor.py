@@ -88,7 +88,7 @@ class MessageProcessor:
             provider = TerraformConfig.AZURE
 
         elif TerraformConfig.AWS_PROVIDER in hcl_content:
-            required_keys = ['aws_access_key_id', 'aws_secret_access_key', 'aws_region']
+            required_keys = ['aws_access_key_id', 'aws_secret_access_key']
             missing_keys = [key for key in required_keys if key not in self.credentials]
             if missing_keys:
                 raise MissingCredentialsError(f"Missing AWS credentials: {', '.join(missing_keys)}")

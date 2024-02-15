@@ -49,7 +49,6 @@ class TerraformHandler:
         elif self.provider == TerraformConfig.AWS:
             os.environ["AWS_ACCESS_KEY_ID"] = self.credentials["aws_access_key_id"]
             os.environ["AWS_SECRET_ACCESS_KEY"] = self.credentials["aws_secret_access_key"]
-            os.environ["AWS_DEFAULT_REGION"] = self.credentials["aws_region"]
 
     def run_init(self):
         self.logger.info("Running terraform init:\n")
@@ -90,9 +89,9 @@ class TerraformHandler:
             self.logger.debug(apply_output["output"])
             return {"result": 200, "output": apply_output["output"]}
         else:
-            asyncio.create_task(self.run_destroy())
             self.logger.error("Error running Terraform Apply:\n")
             self.logger.error(apply_output["error"])
+            asyncio.create_task(self.run_destroy())
             return {"result": 500, "output": apply_output["error"]}
 
     async def run_destroy(self):

@@ -40,10 +40,10 @@ spec:
           resources:
             requests:
               cpu: 100m
-              memory: 0.5Gi
+              memory: 0.25Gi
             limits:
               cpu: 300m
-              memory: 1Gi
+              memory: 0.5Gi
           volumeMounts:
             - mountPath: /app/data
               name: cometaiac-data
