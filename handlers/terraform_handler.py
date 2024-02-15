@@ -91,7 +91,7 @@ class TerraformHandler:
         else:
             self.logger.error("Error running Terraform Apply:\n")
             self.logger.error(apply_output["error"])
-            asyncio.create_task(self.run_destroy())
+            asyncio.run(self.main_destroy())
             return {"result": 500, "output": apply_output["error"]}
 
     async def run_destroy(self):
@@ -107,6 +107,9 @@ class TerraformHandler:
             self.logger.error("Error running terraform destroy:\n")
             self.logger.error(destroy_output["error"])
             raise TerraformDestroyError("Error running terraform destroy, check the generated template")
+
+    async def main_destroy(self):
+        await self.run_destroy()
 
     def save_hcl_content(self):
         try:
