@@ -80,6 +80,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4.1.1
 
+    - name: Set environment variable in manifest
+      run: |
+        sed -i 's/ENV_API_KEY/${{ secrets.API_KEY }}/g' k8s/cometaiac/deployment.yml
+        sed -i 's/ENV_OPENAI_API_KEY/${{ secrets.OPENAI_API_KEY }}/g' k8s/cometaiac/deployment.yml
+        sed -i 's/ENV_ASSISTANT_ID/${{ secrets.ASSISTANT_ID }}/g' k8s/cometaiac/deployment.yml
+        sed -i 's/ENV_THREAD_ID/${{ secrets.THREAD_ID }}/g' k8s/cometaiac/deployment.yml
+
     - name: Azure login
       uses: azure/login@v1.4.3
       with:

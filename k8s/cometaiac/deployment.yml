@@ -23,6 +23,15 @@ spec:
         - name: cometaiac-ms
           image: tfmjsmu.azurecr.io/cometaiac:latest
           imagePullPolicy: Always
+          env:
+            - name: API_KEY
+              value: ENV_API_KEY
+            - name: OPENAI_API_KEY
+              value: ENV_OPENAI_API_KEY
+            - name: ASSISTANT_ID
+              value: ENV_ASSISTANT_ID
+            - name: THREAD_ID
+              value: ENV_THREAD_ID
           ports:
             - containerPort: 5000
           livenessProbe:

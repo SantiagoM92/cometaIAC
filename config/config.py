@@ -1,5 +1,8 @@
+import os
+
+
 class Config:
-    API_KEY = '5078799b-c729-4150-9cb9-22f1b24f5b23'
+    API_KEY = os.getenv('API_KEY')
     API_PREFIX = '/api/v1'
     API_DESCRIPTION = 'API Rest for the use of the CometaIAC prototype. By Jairo Martínez 🐶🐈‍⬛'
     API_TITLE = 'CometaIAC 🤖'
@@ -32,9 +35,9 @@ class ProductionConfig(Config):
 
 
 class OpenIAConfig:
-    API_KEY = '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'
-    THREAD_ID = 'thread_sJ6ZNANbfYSdYemBRVaObopJ'
-    ASSISTANT_ID = 'asst_7bYaPBJuBoweykJEH8krITXX'
+    API_KEY = os.getenv('OPENAI_API_KEY')
+    THREAD_ID = os.getenv('THREAD_ID')
+    ASSISTANT_ID = os.getenv('ASSISTANT_ID')
     COMPLETE_STATUS = 'completed'
     STANDBY = 9
     RETRIES = 5
